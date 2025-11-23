@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +10,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="header">
         <h1>📸 Foto di Guerrino Vitali</h1>
@@ -18,7 +20,7 @@
         </div>
         <div class="copyright">Foto di proprietà della Gipsoteca Vitali di Cento</div>
     </div>
-    
+
     <div class="controls">
         <div class="map-selector">
             <label>Mappa:</label>
@@ -29,34 +31,35 @@
             <button class="view-btn active" data-view="map">🗺️ Mappa</button>
         </div>
     </div>
-    
+
     <div class="container" id="view-container">
         <div class="gallery-view" id="gallery-view">
             <div class="photo-grid" id="photo-grid">
                 <div class="loading">Caricamento...</div>
             </div>
         </div>
-        
+
         <div class="map-view active" id="map-view">
             <div id="map"></div>
         </div>
-        
+
     </div>
-    
+
     <!-- Lightbox -->
     <div class="lightbox" id="lightbox">
         <div class="lightbox-content">
             <button class="lightbox-close" onclick="closeLightbox()">×</button>
-            
+
             <div class="lightbox-main">
                 <div class="lightbox-image-container">
                     <img id="lightbox-image" src="" alt="">
                 </div>
-                <div class="lightbox-map-container">
+                <div class="lightbox-map-container" id="lightbox-map-container">
+                    <button class="map-toggle-btn" id="map-toggle-btn" title="Toggle Map">🗺️</button>
                     <div id="lightbox-map"></div>
                 </div>
             </div>
-            
+
             <div class="lightbox-info">
                 <h3 id="lightbox-title"></h3>
                 <div class="lightbox-meta">
@@ -73,4 +76,5 @@
     <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
     <script src="app.js"></script>
 </body>
+
 </html>

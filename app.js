@@ -351,12 +351,57 @@ btn.addEventListener('click', () => switchView(btn.dataset.view));
 document.querySelectorAll('.map-btn').forEach(btn => {
 btn.addEventListener('click', () => switchMapType(btn.dataset.map));
 });
+// Map toggle
+const mapContainer = document.getElementById('lightbox-map-container');
+const mapToggleBtn = document.getElementById('map-toggle-btn');
+function toggleMap(e) {
+if (e) e.stopPropagation();
+const isMinimized = mapContainer.classList.toggle('minimized');
+mapToggleBtn.textContent = isMinimized ? '🗺️' : '↘️';
+if (!isMinimized) {
+setTimeout(() => {
+if (mapLightbox) mapLightbox.invalidateSize();
+}, 300); // Wait for transition
+}
+}
+mapToggleBtn.addEventListener('click', toggleMap);
+// Expand when clicking on minimized container
+mapContainer.addEventListener('click', (e) => {
+if (mapContainer.classList.contains('minimized')) {
+toggleMap(e);
+}
+});
 // Keyboard navigation
 document.addEventListener('keydown', (e) => {
 if (document.getElementById('lightbox').classList.contains('active')) {
 if (e.key === 'Escape') closeLightbox();
 if (e.key === 'ArrowLeft') navigateLightbox(-1);
 if (e.key === 'ArrowRight') navigateLightbox(1);
+if (e.key === 'm') toggleMap(); // Shortcut for map
 }
 });
+// Mobile Swipe Support
+let touchStartX = 0;
+let touchEndX = 0;
+const lightbox = document.getElementById('lightbox');
+lightbox.addEventListener('touchstart', (e) => {
+touchStartX = e.changedTouches[0].screenX;
+}, { passive: true });
+lightbox.addEventListener('touchend', (e) => {
+touchEndX = e.changedTouches[0].screenX;
+handleSwipe();
+}, { passive: true });
+function handleSwipe() {
+// Threshold for swipe detection
+if (Math.abs(touchEndX - touchStartX) > 50) {
+if (touchEndX < touchStartX) {
+// Swipe Left -> Next
+navigateLightbox(1);
+}
+if (touchEndX > touchStartX) {
+// Swipe Right -> Previous
+navigateLightbox(-1);
+}
+}
+}
 });
